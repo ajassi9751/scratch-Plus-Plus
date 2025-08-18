@@ -1,0 +1,4 @@
+#Ignore the build files in the directory
+.
+#Dont self ignore
+!gitignore
