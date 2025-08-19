@@ -15,13 +15,15 @@ int main () {
 		threads[i] = std::thread(thrdinit);
 	}
 	for (unsigned int i = 0; i < threadsnum; i++) {
-		threads[i].join();
+		if (threads[i].joinable())
+			threads[i].join();
 	}
 	for (unsigned int i = 0; i < threadsnum; i++) {
 		threads[i] = std::thread(thrdinit);
 	}
 	for (unsigned int i = 0; i < threadsnum; i++) {
-		threads[i].join();
+		if (threads[i].joinable())
+			threads[i].join();
 	}
 
 	std::cout << "Initialized " << threadsnum << " threads";

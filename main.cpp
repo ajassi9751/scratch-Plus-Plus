@@ -1,6 +1,6 @@
 // This file will use the parsed json file to write a "compiled" .cpp file
 #include<iostream>
-#include<stdlib.h>
+#include<stdio.h>
 #include"parser.hpp"
 #include"project.hpp"
 
