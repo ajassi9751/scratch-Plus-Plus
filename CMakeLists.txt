@@ -5,4 +5,4 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 project(scratch++)
 
-add_executable(main main.cpp) # Couldve used ${PROJECT_NAME} but this is easier
+add_executable(main test.cpp) # Couldve used ${PROJECT_NAME} but this is easier
