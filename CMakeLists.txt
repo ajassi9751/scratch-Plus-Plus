@@ -8,6 +8,6 @@ project(scratch++)
 add_executable(${PROJECT_NAME} test.cpp) # Couldve used ${PROJECT_NAME} but this is easier
 
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
+find_package(glfw3 REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw)
