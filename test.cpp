@@ -1,5 +1,6 @@
-#include <iostream>
-#include <thread>
+#include<iostream>
+#include<thread>
+#include<GL/glut.h>
 
 // This file is used for testing
 
@@ -8,7 +9,8 @@ void thrdinit () {
 	std::cout << "created a thread\n";
 }
 
-int main () {
+int main (int argc, char **argv) {
+	glutInit(&argc, argv);
 	unsigned int threadsnum = std::thread::hardware_concurrency();
 	std::thread threads[threadsnum];
 	for (unsigned int i = 0; i < threadsnum; i++) {
@@ -25,7 +27,6 @@ int main () {
 		if (threads[i].joinable())
 			threads[i].join();
 	}
-
 	std::cout << "Initialized " << threadsnum << " threads";
 	return 0;
 }
