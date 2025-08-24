@@ -4,16 +4,33 @@
 
 // This file is used for testing
 
-void thrdinit () {
-	//A placeholder function to initialize threads
-	std::cout << "created a thread\n";
+void drawtest () {
+	glLineWidth(2);
+	glBegin(GL_LINES);
+	glColor3f(1.0f,0.0f,0.0f);
+	glVertex2f(-0.5f,0.0f);
+	glVertex2f(0.5f,0.0f);
+	glEnd();
 }
 
 void windowRenderer (GLFWwindow* window) {
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
+
+	glViewport(0, 0, 800, 600);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glMatrixMode(GL_MODELVIEW);
+	glClearColor(1.0f,1.0f,1.0f,1.0f);
 
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		drawtest();
+		
+		glFlush();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -46,23 +63,11 @@ int main () {
 	threads[0] = std::thread(windowRenderer, window); //The render thread
 	threadAvail--;
 	
-	//for (unsigned int i = 1; i < threadsnum; i++) {
-		//threads[i] = std::thread(thrdinit);
-	//}
-	//for (unsigned int i = 1; i < threadsnum; i++) {
-		//if (threads[i].joinable())
-			//threads[i].join();
-	//}
-	//std::cout << "Initialized " << threadsnum << " threads";
-	//while (true) {
-		//if (threads[0].joinable())
-			//threads[0].join();
-	//}
+	//The main loop should end with this
 	while (!glfwWindowShouldClose(window)) {
 		//Wait idk
 	}
-	if (threads[0].joinable())
-		threads[0].join();
+	threads[0].join();
 
 	glfwTerminate();
 	return 0;
