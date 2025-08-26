@@ -9,4 +9,5 @@ void parsejson(const char path[]) {
     rewind(fptr);
     char fbuff[length];
     fgets(fbuff,length,fptr);
+    // Creates a string with the contents of the whole file, this may be unviable for large files
 }

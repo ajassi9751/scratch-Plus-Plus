@@ -1,5 +1,5 @@
 Project structure (how it is developed):
-test.cpp is currently being wotked on and is used to build the rendering and managing threads, most of its code will be copied into future "compiled" scratch projects
+test.cpp is currently being worked on and is used to build the rendering and managing threads, most of its code will be copied into future "compiled" scratch projects
 parser.hpp will parse the project.json from a scratch project
 project.hpp creates data structures to handle output from the parser and organize it
 main.cpp will be the one that actually creates "compiled" scratch projects

@@ -1,0 +1,36 @@
+This isnt very official but here are some things that I documentation
+
+Comments have a space before the text and start capitalized: // Comment
+
+If statments and other things are like this:
+if (condition) {
+    // Stuff
+}
+One line if statments dont need curly braces but either way is fine
+Functions:
+foo (Arguments) {
+    // Stuff
+}
+Pointers (You may see me write them either way but I like this):
+typename* varname;
+I also prefer typename rather than class in templates:
+template<typename T>
+Include statements can be written with or without a space I dont have a preference really:
+#include<iostream>
+Never do this when a function takes a pointer as an argument:
+int i = 0;
+int* pi = &i;
+foo(pi);
+Always do this:
+int i = 0;
+foo(&i);
+This makes code more readable and less clutttered
+Alternitavely foo can use a reference
+Goto statements are encouraged but only to make code more readable when handling errors
+I generally write if statements and for loops like so (Although this is not really strict and I will sometimes not do this):
+for (int i = 0;i<foo;++i) {
+    // Something
+}
+Notice that I generally write very compact other than with equal signs (This is once again not strict)
+I also use tabs not spaces
+The naming convention is completeley up for debate

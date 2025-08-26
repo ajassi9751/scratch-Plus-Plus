@@ -1,7 +1,7 @@
 This project is a high performance scratch to c++ "compiler" that allows for true multithreading and efficient code execution from a scratch project
 
 Build:  
-First make sure you have the [requirements](requirements.txt)  
+First make sure you have the [requirements](documentation/requirements.txt)  
 ```bash
 git clone https://github.com/ajassi9751/scratch-Plus-Plus
 cd scratch-Plus-Plus
@@ -15,5 +15,6 @@ make
 How to get involved:  
 Create code for the project  
 Create documentation  
+Feel free to reformat code to be more readable as there is currently no standard (check out [coding standards](documentation/codestandards.txt))
 
-Make sure to check out [the todo list](todo) and [the planning file](planning.txt)
+Make sure to check out [the todo list](documentation/todo) and [the planning file](documentation/planning.txt)
