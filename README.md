@@ -15,6 +15,6 @@ make
 How to get involved:  
 Create code for the project  
 Create documentation  
-Feel free to reformat code to be more readable as there is currently no standard (check out [coding standards](documentation/codestandards.txt))
+Feel free to reformat code to be more readable or change the [coding standards](documentation/codestandards.txt)
 
 Make sure to check out [the todo list](documentation/todo) and [the planning file](documentation/planning.txt)
