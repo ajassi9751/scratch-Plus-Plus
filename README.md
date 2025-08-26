@@ -16,4 +16,4 @@ How to get involved:
 Create code for the project  
 Create documentation  
 
-Make sure to check out [the todo list](todo)  
+Make sure to check out [the todo list](todo) and [the planning file](planning.txt)
