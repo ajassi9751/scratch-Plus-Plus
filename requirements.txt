@@ -1,0 +1,10 @@
+Requirements (linux)
+Cmake (At least 3.28.3)
+GNU make
+OpenGL libararies and glfw
+clang++ (you can switch this for msvc or g++)
+git
+
+Windows: Just use wsl
+
+Mac os: Probably the same as linux

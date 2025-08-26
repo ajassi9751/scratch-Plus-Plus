@@ -1,0 +1,11 @@
+Project structure (how it is developed):
+test.cpp is currently being wotked on and is used to build the rendering and managing threads, most of its code will be copied into future "compiled" scratch projects
+parser.hpp will parse the project.json from a scratch project
+project.hpp creates data structures to handle output from the parser and organize it
+main.cpp will be the one that actually creates "compiled" scratch projects
+
+Threads:
+My idea for threads:
+One thread handles rendering because it is 2d and we have no threads to waste
+Some threads have "wait" blocks and will need to be handled on their own thread (this may not be possible if there are not enough threads and a more complex solution may need to be implemented)
+The rest of the threads will be used for scripts with no "wait" blocks with a minnimum of one thread
