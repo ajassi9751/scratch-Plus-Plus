@@ -2,48 +2,21 @@
 #include<thread>
 #include<vector>
 #include<GLFW/glfw3.h>
+#include<mutex>
 
 // This file is used for testing
+std::mutex renderLock;
 
-class Renderer {
-	private:
-		std::vector<float> lnposx1;
-		std::vector<float> lnposy1;
-		std::vector<float> lnposx2;
-		std::vector<float> lnposy2;
-		std::vector<float> lncolor1;
-		std::vector<float> lncolor2;
-		std::vector<float> lncolor3;
-		std::vector<float> lnwidth;
-	public:
-		float getwidth (int index) {
-			return lnwidth.at(index);
-		}
-		float getc1 (int index) {
-			return lncolor1.at(index);
-		}
-		float getc2 (int index) {
-			return lncolor2.at(index);
-		}
-		float getc3 (int index) {
-			return lncolor3.at(index);
-		}
-		float getx1 (int index) {
-			return lnposx1.at(index);
-		}
-		float gety1 (int index) {
-			return lnposy1.at(index);
-		}
-		float getx2 (int index) {
-			return lnposx2.at(index);
-		}
-		float gety2 (int index) {
-			return lnposy2.at(index);
-		}
-		int isize () {
-			return lnwidth.size();
-		}
-};
+typedef struct {
+	std::vector<float> lnwidth = {2.0f};
+	std::vector<float> lncolor1 = {1.0f};
+	std::vector<float> lncolor2 = {0.0f};
+	std::vector<float> lncolor3 = {0.0f};
+	std::vector<float> lnposx1 = {1.0f};
+	std::vector<float> lnposy1 = {1.0f};
+	std::vector<float> lnposx2 = {-1.0f};
+	std::vector<float> lnposy2 = {-1.0f};
+} renderStruct;
 
 void draw (float width, float color1, float color2, float color3, float x1, float y1, float x2, float y2) {
 	glLineWidth(width);
@@ -54,7 +27,7 @@ void draw (float width, float color1, float color2, float color3, float x1, floa
 	glEnd();
 }
 
-void windowDisplayer (GLFWwindow* window, Renderer* renderer) {
+void windowDisplayer (GLFWwindow* window, renderStruct* renderQue) {
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1); // Vsync
 
@@ -71,11 +44,11 @@ void windowDisplayer (GLFWwindow* window, Renderer* renderer) {
 
 		// Drawings
 
-		draw(2,1.0f,0.0f,0.0f,-0.5f,0.25f,0.5f,-0.25f);
+		//draw(2,1.0f,0.0f,0.0f,-0.5f,0.25f,0.5f,-0.25f);
 		
-		for (int i = 0;i<renderer->isize();++i) {
-			draw(renderer->getwidth(i),renderer->getc1(i),renderer->getc2(i),renderer->getc3(i),renderer->getx1(i),renderer->gety1(i),renderer->getx2(i),renderer->gety2(i));
-		}
+			for (int i = 0;i<renderQue->lnwidth.size();++i) {
+				draw(renderQue->lnwidth[i],renderQue->lncolor1[i],renderQue->lncolor2[i],renderQue->lncolor3[i],renderQue->lnposx1[i],renderQue->lnposy1[i],renderQue->lnposx2[i],renderQue->lnposy2[i]);
+			}
 		
 		glFlush();
 		glfwSwapBuffers(window);
@@ -88,7 +61,6 @@ void framebuffer_size_callback (GLFWwindow* window, int width, int height) {
 }
 
 int main () {
-	Renderer renderer;
 	//Initialization
 	if (!glfwInit()) {
 		std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -103,12 +75,13 @@ int main () {
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	renderStruct renderQue;
 	unsigned int threadsnum = std::thread::hardware_concurrency();
 	unsigned int threadAvail = std::thread::hardware_concurrency();
 
 	std::thread threads[threadsnum];
 
-	threads[0] = std::thread(windowDisplayer, window, &renderer); //The render thread
+	threads[0] = std::thread(windowDisplayer, window, &renderQue); //The render thread
 	threadAvail--;
 	
 	//The main loop should end with this
