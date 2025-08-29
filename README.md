@@ -2,7 +2,7 @@ This project is a high performance scratch to c++ "compiler" that allows for tru
 
 Build:  
 First make sure you have the [requirements](documentation/requirements.txt)  
-```bash
+```Bash
 git clone https://github.com/ajassi9751/scratch-Plus-Plus
 cd scratch-Plus-Plus
 cd build
