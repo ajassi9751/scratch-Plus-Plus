@@ -8,10 +8,10 @@ if (condition) {
 }
 One line if statments dont need curly braces but either way is fine
 Functions:
-foo (Arguments) {
+foo (int i, char c) {
     // Stuff
 }
-Pointers (You may see me write them either way but I like this):
+Pointers (You may see me write them either way but I like this) this is because it is a pointer of the type and the pointer is not part of the name:
 typename* varname;
 I also prefer typename rather than class in templates:
 template<typename T>
@@ -33,4 +33,6 @@ for (int i = 0;i<foo;++i) {
 }
 Notice that I generally write very compact other than with equal signs (This is once again not strict)
 I also use tabs not spaces
-The naming convention is completeley up for debate
+Const always before anything else:
+const char c;
+The naming convention is completely up for debate
