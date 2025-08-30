@@ -1,6 +1,7 @@
 #include<iostream>
 #include<thread>
 #include<vector>
+#include<chrono>
 #include<GLFW/glfw3.h>
 #include<mutex>
 
@@ -27,12 +28,22 @@ void draw (float width, float color1, float color2, float color3, float x1, floa
 	glEnd();
 }
 
-void windowDisplayer (GLFWwindow* window, renderStruct* renderQue) {
+void windowDisplayer (GLFWwindow* window, renderStruct* renderQue, const int refreshRate) {
+	// Delay setup
+	auto time_current = std::chrono::steady_clock::now();
+	auto time_last = time_current;
+	const auto update_interval = std::chrono::milliseconds{1000/refreshRate};
+	time_current = std::chrono::steady_clock::now();
+	auto time_d = time_current - time_last;
+
+	/// glfw setup
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1); // Vsync
 
+	// Might remove
 	glViewport(0, 0, 800, 600);
 
+	// gl setup
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
@@ -42,13 +53,19 @@ void windowDisplayer (GLFWwindow* window, renderStruct* renderQue) {
 	while (!glfwWindowShouldClose(window)) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		// Delay for rendering, doesnt seem to work :(
+		while (time_d >= update_interval) {
+			time_d -= update_interval;
+			time_last += update_interval;
+		}
 		// Drawings
-
 		//draw(2,1.0f,0.0f,0.0f,-0.5f,0.25f,0.5f,-0.25f);
-		
-			for (int i = 0;i<renderQue->lnwidth.size();++i) {
-				draw(renderQue->lnwidth[i],renderQue->lncolor1[i],renderQue->lncolor2[i],renderQue->lncolor3[i],renderQue->lnposx1[i],renderQue->lnposy1[i],renderQue->lnposx2[i],renderQue->lnposy2[i]);
-			}
+		// Mutex locking to prevent data races
+		renderLock.lock();
+		for (int i = 0;i<renderQue->lnwidth.size();++i) {
+			draw(renderQue->lnwidth[i],renderQue->lncolor1[i],renderQue->lncolor2[i],renderQue->lncolor3[i],renderQue->lnposx1[i],renderQue->lnposy1[i],renderQue->lnposx2[i],renderQue->lnposy2[i]);
+		}
+		renderLock.unlock();
 		
 		glFlush();
 		glfwSwapBuffers(window);
@@ -72,6 +89,15 @@ int main () {
 		glfwTerminate();
 		return -1;
 	}
+	// For the refresh rate stuff
+	GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+	if (!window) {
+		std::cerr << "No primary monitor found" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+	const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
+	const int refreshRate = mode->refreshRate;
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -81,7 +107,7 @@ int main () {
 
 	std::thread threads[threadsnum];
 
-	threads[0] = std::thread(windowDisplayer, window, &renderQue); //The render thread
+	threads[0] = std::thread(windowDisplayer, window, &renderQue, refreshRate); //The render thread
 	threadAvail--;
 	
 	//The main loop should end with this
