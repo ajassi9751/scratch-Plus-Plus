@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstring>
 #include<thread>
 #include<vector>
 #include<chrono>
@@ -36,7 +37,10 @@ void windowDisplayer (GLFWwindow* window, renderStruct* renderQue, const int ref
 	time_current = std::chrono::steady_clock::now();
 	auto time_d = time_current - time_last;
 
-	/// glfw setup
+	// Copyer setup
+	renderStruct cpyQue;
+
+	// glfw setup
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1); // Vsync
 
@@ -50,7 +54,40 @@ void windowDisplayer (GLFWwindow* window, renderStruct* renderQue, const int ref
 	glMatrixMode(GL_MODELVIEW);
 	glClearColor(1.0f,1.0f,1.0f,1.0f);
 
+	// Make sure one frame is rendered
+	glClear(GL_COLOR_BUFFER_BIT);
+	// Mutex locking to prevent data races
+	renderLock.lock();
+	for (int i = 0;i<renderQue->lnwidth.size();++i) {
+		draw(renderQue->lnwidth[i],renderQue->lncolor1[i],renderQue->lncolor2[i],renderQue->lncolor3[i],renderQue->lnposx1[i],renderQue->lnposy1[i],renderQue->lnposx2[i],renderQue->lnposy2[i]);
+	}
+	renderLock.unlock();
+	glFlush();
+	glfwSwapBuffers(window);
+	glfwPollEvents();
+	// Main loop
 	while (!glfwWindowShouldClose(window)) {
+		renderLock.lock();
+		//std::cout << std::memcmp(renderQue,&cpyQue,sizeof(*renderQue)) << "\n";
+		if (cpyQue.lnwidth==renderQue->lnwidth && cpyQue.lncolor1==renderQue->lncolor1 && cpyQue.lncolor2==renderQue->lncolor2 && cpyQue.lncolor3==renderQue->lncolor3 && cpyQue.lnposx1==renderQue->lnposx1 && cpyQue.lnposy1==renderQue->lnposy1 && cpyQue.lnposx2==renderQue->lnposx2 && cpyQue.lnposy2==renderQue->lnposy2) {
+			//std::cout << "true";
+			glfwPollEvents();
+			renderLock.unlock();
+			continue;
+		}
+		else {
+			//std::memcpy(&cpyQue,renderQue,sizeof(*renderQue));
+			cpyQue.lnwidth = renderQue->lnwidth;
+			cpyQue.lncolor1 = renderQue->lncolor1;
+			cpyQue.lncolor2 = renderQue->lncolor2;
+			cpyQue.lncolor3 = renderQue->lncolor3;
+			cpyQue.lnposx1 = renderQue->lnposx1;
+			cpyQue.lnposy1 = renderQue->lnposy1;
+			cpyQue.lnposx2 = renderQue->lnposx2;
+			cpyQue.lnposy2 = renderQue->lnposy2;
+			renderLock.unlock();
+		}
+
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Delay for rendering, doesnt seem to work :(
