@@ -2,6 +2,6 @@ Make a parser
 Maybe just use a struct instead of a renderer class ✅
 Be able to display images
 Stratigize how to spread out threads across devices with varying amounts of threads (see planning.txt)
-Reorganize the project (like adding an src folder)
+Reorganize the project (like adding an src folder) ✅
 Add emojis to commits and other places
 Somehow make Cmake automatically retrive the opengl and glfw packages
