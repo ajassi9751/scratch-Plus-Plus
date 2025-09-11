@@ -5,7 +5,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 project(scratch++)
 
-add_executable(${PROJECT_NAME} src/test.cpp)
+add_executable(${PROJECT_NAME} src/compiler/test.cpp)
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)

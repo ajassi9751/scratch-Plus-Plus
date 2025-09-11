@@ -6,4 +6,4 @@ Stratigize how to spread out threads across devices with varying amounts of thre
 Reorganize the project (like adding an src folder) ✅
 Add emojis to commits and other places
 Somehow make Cmake automatically retrive the opengl and glfw packages
-Create a scratch standard library maybe
+Create a scratch standard library maybe (in progress)
