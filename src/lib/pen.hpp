@@ -1,14 +1,10 @@
-#ifndef SCRATCHPEN
-#define SCRATCHPEN
-
+#ifndef SCRATCHTDLIB
+#include"scratchtdlib.hpp"
 #endif
 
+#ifndef SCRATCHPEN
+#define SCRATCHPEN
 namespace Scratch {
-    typedef struct {
-        int r;
-        int b;
-        int g;
-    } rgb;
     class pen {
         private:
             void* parentSprite; // Switch out for the proper object
@@ -25,3 +21,4 @@ namespace Scratch {
             void size(double tsize);
     };
 }
+#endif

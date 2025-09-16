@@ -20,4 +20,6 @@ namespace Scratch {
     bool isButtonPressed (const char* button) {
         // Do some glfw stuff
     }
+    // Sprite attatched
+    // Create a sprite class to be used inside of the code
 }
