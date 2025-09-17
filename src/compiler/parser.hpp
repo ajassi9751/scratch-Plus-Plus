@@ -1,6 +1,6 @@
 // This file parses a json file and creates a data structure out of it
-#include<stdio.h>
-#include<cstring>
+#include <stdio.h>
+#include <cstring>
 
 /*
 @brief Finds a substring in a string and returns its position in said string

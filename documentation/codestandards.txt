@@ -16,7 +16,7 @@ typename* varname;
 I also prefer typename rather than class in templates:
 template<typename T>
 Include statements can be written with or without a space I dont have a preference really:
-#include<iostream>
+#include <iostream>
 Never do this when a function takes a pointer as an argument:
 int i = 0;
 int* pi = &i;

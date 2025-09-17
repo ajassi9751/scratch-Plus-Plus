@@ -1,6 +1,6 @@
 //This file will contain some data structure for a parsed json object
-#include<vector>
-#include<string>
+#include <vector>
+#include <string>
 
 const std::string events[] = {"eventWhenFlagClicked"}; //Stores valid strings for events should be in parser.hpp
 

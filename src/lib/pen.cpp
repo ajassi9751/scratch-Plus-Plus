@@ -1,12 +1,8 @@
 #ifndef SCRATCHPEN
-#include"pen.hpp"
+#include "pen.hpp"
 #endif
 
 namespace Scratch {
-    pen::pen(void* pSprite) {
-        // Attatch the pen to a sprite or maybe this isnt needed
-    }
-
     void pen::up() {
         // Do some renderer things
     }

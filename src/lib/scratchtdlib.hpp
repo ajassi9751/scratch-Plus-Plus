@@ -1,17 +1,25 @@
+#ifndef STDSTRING
+#define STDSTRING
+#include <string>
+#endif
+
 #ifndef SCRATCHTDLIB
 #define SCRATCHTDLIB
-#include<string>
+
 #define RANDOM_POS 0
 #define MOUSE_POINTER 1
 #define LEFT_RIGHT 0
 #define DONT_ROTATE 1
 #define ALL_AROUND 2
+
 namespace Scratch {
     // Objects
     class sprite {
-       private:
        public:
-         // Motion
+        #ifdef SCRATCHPEN
+            pen sPen;
+        #endif
+        // Motion
         void moveSteps(double steps);
         void turnClockwise(double degrees);
         void turnCounterClockwise(double degrees);

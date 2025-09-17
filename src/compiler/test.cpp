@@ -1,10 +1,10 @@
-#include<iostream>
-#include<cstring>
-#include<thread>
-#include<vector>
-#include<chrono>
-#include<GLFW/glfw3.h>
-#include<mutex>
+#include <iostream>
+#include <cstring>
+#include <thread>
+#include <vector>
+#include <chrono>
+#include <GLFW/glfw3.h>
+#include <mutex>
 
 // This file is used for testing
 std::mutex renderLock;
