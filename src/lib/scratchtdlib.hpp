@@ -6,7 +6,7 @@
 #ifndef SCRATCHTDLIB
 #define SCRATCHTDLIB
 
-// Macros for selection values (dropdown lists)
+// Macros for selection values (dropdown lists) maybe I should use enums
 #define RANDOM_POS 0
 #define MOUSE_POINTER 1
 
@@ -27,6 +27,12 @@
 
 #define FORWARD_LAYER 0
 #define BACKWARDS_LAYER 1
+
+#define PITCH_EFFECT 0
+#define PAN_LEFT_RIGHT_EFFECT 1
+
+#define DRAGGABLE 0
+#define NOT_DRAGGABLE 1
 
 namespace Scratch {
     // Objects
@@ -78,7 +84,26 @@ namespace Scratch {
         int getBackdrop();
         double getSize();
         // Sound
-        void playUntilDone(const std::string path);
+        void playUntilDone(const std::string path); // Maybe instaed have some kind of internal storage
+        void playSound(const std::string path);
+        void stopSounds();
+        void changeSoundEffectBy(const int selection, const double amount);
+        void setSoundEffect(const int selection, const double amount);
+        void clearAllSoundEffects();
+        void changeVolumeBy(const double amount);
+        void setVolumeTo(const double amount);
+        double getVolume();
+        // Events don't really make sense here
+        // Neither do controls
+        // I do have to add clones though
+        // Sensing
+        bool isTouching(const int selection); // Problem is it can be a sprite or mouse or edge
+        bool isTouchingColor(const rgb color);
+        bool isColorTouchingColor(const rgb color1, const rgb color2);
+        double getDistanceFrom(const int selection); // Again this can be a sprite
+        void ask(const std::string text);
+        std::string getAnswer();
+        void setDragMode(const int selection);
     };
     typedef struct {
         int r, g, b;
